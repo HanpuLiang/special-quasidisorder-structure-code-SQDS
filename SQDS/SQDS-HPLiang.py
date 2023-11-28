@@ -26,7 +26,7 @@ def perform_sqs(positions, A_site_id, B_site_id, cell, factor, element, N_atom):
     with open('cur_sqs.out', 'w') as obj:
         obj.write(out_poscar)
     
-    os.system('corrdump -2=4.2 -s=cur_sqs.out -l=rndstr.in -noe -c > cur_tcf.out')
+    os.system('corrdump -2=4.2 -s=cur_sqs.out -l=rndstr.in -noe -c 2>warning 1>cur_tcf.out')
     cur_tcf = get_cur_score()
     # more ctprint(cur_tcf)
     
