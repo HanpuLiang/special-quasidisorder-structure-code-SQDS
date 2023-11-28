@@ -43,7 +43,7 @@ def sqs_main():
     # the weight of each cluster, of course, an uniform weight is ok
     weight = [0.3, 0.3, 0.2, 0.1, 0.1] ### <<< ----- change --- <<<
     # file name of supercell
-    file_name = 'MCS-443.vasp' ### <<< ----- change --- <<<
+    file_name = 'MCS-444.vasp' ### <<< ----- change --- <<<
     
     
     
