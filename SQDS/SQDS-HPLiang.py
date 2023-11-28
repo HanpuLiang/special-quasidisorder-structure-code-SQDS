@@ -44,8 +44,7 @@ def sqs_main():
     weight = [0.3, 0.3, 0.2, 0.1, 0.1] ### <<< ----- change --- <<<
     # file name of supercell
     file_name = 'MCS-443.vasp' ### <<< ----- change --- <<<
-    # the index of changable atoms
-    A_site_id = np.array(list(range(N_atom[0] + N_atom[1])))  ### <<< ----- change --- <<<
+    
     
     
     with open(file_name, 'r') as obj:
@@ -56,6 +55,9 @@ def sqs_main():
     N_atom = np.array([int(float(item)) for item in poscar[6].split()])
     N_total = np.sum(N_atom)
     positions = poscar[8:]
+    
+    # the index of changable atoms
+    A_site_id = np.array(list(range(N_atom[0] + N_atom[1])))  ### <<< ----- change --- <<<
     
     
     B_site_id = A_site_id
