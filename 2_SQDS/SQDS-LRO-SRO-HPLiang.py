@@ -1,6 +1,8 @@
 '''
 @author: Han-Pu Liang
 @date: 2023/07/10
+@affiliation: Beijing computational science research center; Eastern institute of technology, Ningbo
+@email: hanpuliang@csrc.ac.cn
 @description: This code find the best match of the target correlation function of the target supercell. 
 '''
 
@@ -10,6 +12,7 @@ import os, random
 target_lro = 0.0
 target_sro = 0.0
 N_iter = 100000
+cutoff_score = 0.001
 expand_matrix = np.array([[5, 0, 0], [0, 5, 0], [0, 0, 2]])
 exchange_atoms = ['Zn', 'Sn']
 fixed_atoms = ['P']
@@ -185,7 +188,7 @@ Direct
                 obj.write(cur_out_poscar)
             os.system(f'cp cur_sqs_{cur_mpi_id}.out best_sqs_{cur_mpi_id}.out')
             os.system(f'cp cur_tcf_{cur_mpi_id}.out best_tcf_{cur_mpi_id}.out')
-            if score < 0.01:
+            if score < cutoff_score:
                 os.system(f'cp best_POSCAR_{cur_mpi_id}.vasp save-best-data/POSCAR-{score:.10f}-{cur_mpi_id}.vasp')
                 os.system(f'cp best_sqs_{cur_mpi_id}.out save-best-data/sqs-{score:.10f}-{cur_mpi_id}.out')
                 os.system(f'cp best_tcf_{cur_mpi_id}.out save-best-data/tcf-{score:.10f}-{cur_mpi_id}.out')

@@ -1,7 +1,7 @@
 '''
 @author: Han-Pu Liang
-@date: 2024/10/30
-@affilition: Beijing computational science research center; Eastern institute of technology, Ningbo
+@date: 2024/10/20
+@affiliation: Beijing computational science research center; Eastern institute of technology, Ningbo
 @email: hanpuliang@csrc.ac.cn
 @description: This code calculates the polyhedra distribution in disordered alloys. 
                 In the case of zinc-blende lattice ZnSnP2, the nearest-neighbor is tetrahedron, so the class number of tetrahedron is 5;

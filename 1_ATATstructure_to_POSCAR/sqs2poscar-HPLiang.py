@@ -1,6 +1,8 @@
 '''
 @author: Han-Pu Liang
 @date: 2023/06/05
+@affiliation: Beijing computational science research center; Eastern institute of technology, Ningbo
+@email: hanpuliang@csrc.ac.cn
 @description: This sqs2poscar code has no atom number limit. you can enter: `python sqs2poscar-HPLiang.py [file]` to convert the structure file of ATAT to POSCAR of VASP
 '''
 
@@ -27,7 +29,6 @@ inv_decell = np.linalg.inv(decell)
 pos_frac = np.matmul( np.matmul(pos, cell), inv_decell )
 
 atom_type = np.unique(atoms)
-print(atom_type)
 atom_num = []
 pos_sort = []
 
@@ -55,3 +56,5 @@ Direct
 
 with open(f'{file_name}-POSCAR', 'w') as obj:
     obj.write(out_poscar)
+
+print(f'Finish! Structure saves into *{file_name}-POSCAR*')

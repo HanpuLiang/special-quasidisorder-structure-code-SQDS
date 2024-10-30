@@ -10,21 +10,64 @@ Disordered supercell usually has an anion-centered polyhedron distribution. The 
 
 We newly define the disordered alloy bandgap by the electronic density of states. The code saves in `4_Fitting_Alloy_Bandgap/`. 
 
+**These codes are applied into my papers: [JACS 146, 16222 (2024)](https://pubs.acs.org/doi/10.1021/jacs.4c04201), so I hope that if the reader uses my code, please cite these paper, especially the SQDS code. Thanks!**
+
+bib content:
+```
+
+```
+
 ## 1. Converting from ATAT structure file to POSCAR file
 
 The other converting code from ATAT structure file to POSCAR file has a atom number limition that about 400 atoms. It is hard to sufficient the large simulation.
 
 So I write this code for no any nolimition. 
 
-I provide the script that named `sqs2poscar-HPLiang.py`, and the example ATAT file `lat.in`.
+I provide the script that named `sqs2poscar-HPLiang.py`, and the example ATAT file `sqs.out`.
 
-The reader enter
-```
+The reader uses this code by entering
+```linux
 python sqs2poscar-HPLiang.py sqs.out
 ```
 and can obtain a POSCAR file `sqs.out-POSCAR`.
 
+This script is based on `Python_3.x` and requires `numpy` package.
+
 ## 2. SQDS code
+
+This code is based on the `corrdump` command in `ATAT` code to obtain the atomic correlation function, so when the reader runs this code, the `ATAT` must be installed in your computer/cluster.
+
+The original `mcsqs` command in `ATAT` is hard to generate a partial disordered structure and I don't know why it can not work effectively. So I write this SQDS to construct the partial disordered structure that satisfy the targeted atomic correlation function.
+
+Furthermore, `mcsqs` also don't consider the matching of long-range order, which has another definition: 
+```
+In the ordered structure, A and B seperate into two sublattices. When the structure becomes more disorder, the A and B continus to exchange between both sublattices, while A and B are uniformly distribute in every sublattice. At the fully disordered state, A and B are half half seperate into two sublattices and in each sublattice, the atoms distributions are random. 
+```
+`mcsqs` only search the structures by the targeted random correlation function, while ignore the exchange between two sublattice from the ordered structure. Thus, although the short-range order, i.e., atomic correlation, closes to 0 of this searched SQS, it may is not satisfy the long-range order closes to 0. So, this SQDS code search disordered structure not only matches the correlation function, but also satisfies the atom exchange ratio of long-range order.
+
+In SQDS method, the correlation function at targeted long-range order $\eta$ is defined as
+$$
+\Pi(x, \eta) = \Pi(x,0)+ \eta^2[\Pi(x,1)-\Pi(x,0)],
+$$
+where $\Pi(x,0)=(2x-1)^k$ and $\Pi(x,1)$ is the correlation function of the targeted ordered structure, such as the chalcopyrite of ZnSnP2 compound.
+
+We set some parameters in the front of code, such as
+```python
+target_lro = 0.0    # the targeted Long-range order $\eta$
+target_sro = 0.0    # the targeted short-range order, i.e., the atomic correlation function of each cluster
+N_iter = 100000     # iteration number
+cutoff_score = 0.001    # the score cutoff during the search process
+expand_matrix = np.array([[5, 0, 0], [0, 5, 0], [0, 0, 2]]) # the expand coefficient of targeted ordered structure
+exchange_atoms = ['Zn', 'Sn']   # the exchange atoms
+fixed_atoms = ['P'] # the unexchange atom
+order_file_name = 'ZnSnP2-symmetry-cell.vasp'   # the filename of ordered structure
+SRO_critic = 2  # 0: mean, 1: max, 2: exp(-(d-d0))
+```
+
+In the search process, the score is defined as $score=0.5*|\eta_{target} - \eta_{current}| + 0.5*|\Pi_{target} - \Pi_{current}|$. 
+
+
+
 
 
 ## 3. Polyhedron distribution code
