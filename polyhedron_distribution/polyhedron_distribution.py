@@ -1,18 +1,24 @@
+'''
+@author: Han-Pu Liang
+@date: 2024/10/30
+@affilition: Beijing computational science research center; Eastern institute of technology, Ningbo
+@email: hanpuliang@csrc.ac.cn
+@description: This code calculates the polyhedra distribution in disordered alloys. 
+                In the case of zinc-blende lattice ZnSnP2, the nearest-neighbor is tetrahedron, so the class number of tetrahedron is 5;
+                the second-nearest-nerghbor polyhedron has 12 vertices, so the class number of polyhedron is 13.
+                For the rock-salt lattice, the nearest-neighbor is octahedron.
+'''
+
 import numpy as np
 from ase.io import read
-import ase.io.vasp
-from scipy.stats import gaussian_kde
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import norm #  用正态分布与数据分布做比较 
-import os, shutil
 
+def output_data(name, data):
+    out_data = name + ' '.join([f'{i:6.2f}' for i in data])
+    print(out_data)
 
-''' write the tetrahedra distribution of structure with CF '''
-def func2():
-    # mats = ['poscar-221.vasp', 'poscar-222.vasp', 'poscar-331.vasp', 'lso0-sro0-332-2.vasp', 'poscar-442.vasp']
-    mats = ['lso0.75-sro0.75-442-1-old.vasp', 'poscar-0.5-0.5-442.vasp', 'lso0.25-sro0.25-442.vasp']
-    # id, CF[0], tetra
+''' calculate the polyhedra distribution of structure '''
+def calc_distribution():
+    mats = ['random-64atoms.vasp', 'random-512atoms.vasp']
     anion = 'P'
     cation = 'Zn'
     all_tetra = np.zeros((len(mats),5))
@@ -34,14 +40,10 @@ def func2():
             cur_N_sec_poly = np.sum(anion_sec_neighb_symb==cation)
             all_tetra[i,cur_N_cation] = all_tetra[i,cur_N_cation] + 1
             all_poly_sec[i,cur_N_sec_poly] = all_poly_sec[i,cur_N_sec_poly] + 1
-        print(all_tetra[i,:])
-        print(all_poly_sec[i,:])
-    out_data = '\n'.join([', '.join([f'{item:7.4f}' for item in line]) for line in all_tetra])
-    with open('CF-tetra.csv', 'w') as obj:
-        obj.write(out_data)
+        tetra_N_coe = np.sum(all_tetra[i,:]) / 16
+        poly_N_coe = np.sum(all_poly_sec[i,:]) / 256
+        output_data(mats[i]+' Tetra: ', all_tetra[i,:] / tetra_N_coe)
+        output_data(mats[i]+' Poly-sec: ', all_poly_sec[i,:]/ poly_N_coe)
 
 if __name__ == '__main__':
-    # func1()
-    func2()
-    # func3()
-    # func4()
+    calc_distribution()
