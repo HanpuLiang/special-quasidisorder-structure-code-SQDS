@@ -64,13 +64,15 @@ order_file_name = 'ZnSnP2-symmetry-cell.vasp'   # the filename of ordered struct
 SRO_critic = 2  # 0: mean, 1: max, 2: exp(-(d-d0))
 ```
 
-In the search process, the score is defined as $score=0.5*|\eta_{target} - \eta_{current}| + 0.5*|\Pi_{target} - \Pi_{current}|$. 
+In the search process, the score is defined as $score=0.5*|\eta_{target} - \eta_{current}| + 0.5*|\Pi_{target} - \Pi_{current}|$. The curoff of score presents that the code only outputs the searched structure below this cutoff value. Generally, for the different lattice, composition, and order degree, we need to choose a suitable small cutoff, otherwise the code will generates a hugh number of structures or no structure generated. The reader should test this cutoff for a targeted case.
 
+This code calculates the long-range order is calculated by the initial configuration of inputed ordered structure. I summurizes the concentration that A atom still stay in the A sublattice, and $\eta=2n_A-1$. The short-range order, i.e., atomic correlation function, is calculated by the `corrdump` command in `ATAT` code. So every generated structure will convert to the ATAT structure files and output the correlation function with the corresponding input file `clusters.out` and `rndstr.in`.
 
-
-
+This code supports multiprocess that submitting to the computer cluster. After runing the code, many files will generate and the searched structure sill save into the `save-best-data/`. The score more smaller, the structure more closer to the target disorder degree. 
 
 ## 3. Polyhedron distribution code
+
+
 
 
 ## 4. Fitting alloy bandgap code

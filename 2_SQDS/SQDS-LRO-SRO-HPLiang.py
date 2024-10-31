@@ -92,6 +92,9 @@ def convert_positions(cell, positions):
 
 def sqs_main():
     cur_mpi_id = os.getenv('SLURM_PROCID')
+
+    if not os.path.exists('save-best-data'):
+        os.mkdir('save-best-data')
     
     # the desired correlation function
     score = 9999
