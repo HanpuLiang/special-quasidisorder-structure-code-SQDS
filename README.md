@@ -4,7 +4,7 @@ This respository saves the Python scripts about the Special Quasirandom Structur
 
 SQS denotes that the structure is fully random in atom arrangement. Each atomic correlation function aligns with the $(2x-1)^k$, where $x$ is the alloy composition and $k$ is the atom number in the cluster.
 
-SQDS is the structure that has a partial disorder atom arrangement, not the fully random. This code saves in `2_SQDS/`.
+SQDS is the structure that has a partial disorder atom arrangement, not only the fully random. This code saves in `2_SQDS/`.
 
 Disordered supercell usually has an anion-centered polyhedron distribution. The code that calculates the distribution saves in `3_Polyhedron_Distribution/`.
 
@@ -72,8 +72,16 @@ This code supports multiprocess that submitting to the computer cluster. After r
 
 ## 3. Polyhedron distribution code
 
+In disordered ABC2 compound, while A and B are the exchangeable cations, the appearence frequency of anion-centered polyhedra $A_nB_{N-n}$ is $C^n_N$. In zinc-blende lattice, the nearest-neighbor polyhedron is tetrahedron, and the ordered configuration usually is constructed by $A_2B_2$ tetrahedron. As the structure closes to the disordered configuration, all motifs of the tetrahedra are $A_0B_4$, $A_1B_3$, $A_2B_2$, $A_3B_1$, abd $A_4B_0$ with the ratio 1:4:6:4:1. The second-nearest-neghbor polyhedron has 12 vertices.
 
+This code takes zinc-blende ZnSnP2 alloys as the example, summarzing all nearest-neighbor and second-nearest-neghbor anion-centered polyhedra in the input structure. 
 
+The reader can motofy the `mats` list and `cation`, `anion` variables in the code and run the code by
+```
+python polyhedron_distribution.py
+```
+
+This code is dependented on the `ase` package.
 
 ## 4. Fitting alloy bandgap code
 
