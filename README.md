@@ -76,7 +76,7 @@ In disordered ABC2 compound, while A and B are the exchangeable cations, the app
 
 This code takes zinc-blende ZnSnP2 alloys as the example, summarzing all nearest-neighbor and second-nearest-neghbor anion-centered polyhedra in the input structure. 
 
-The reader can motofy the `mats` list and `cation`, `anion` variables in the code and run the code by
+The reader can motify the `mats` list and `cation`, `anion` variables in the code and run the code by
 ```
 python polyhedron_distribution.py
 ```
