@@ -85,4 +85,13 @@ This code is dependented on the `ase` package.
 
 ## 4. Fitting alloy bandgap code
 
+This method is proposed in the paper `xxxx` (ready to submit). In real physics, the bandgap of disordered alloy usually has a measureable value by optical measurement. However, the bandgap usually is hard to converge with the simulated supercell increasing. This is because the size-dependent localized states in the band gap. So we solve this problem by a fitting method based on the electronic density of states.
 
+We assume that the disordered alloys have the nonparabolic band near the band edge with the relation
+$\gamma(E)=E+c_1E^2=\hbar k^2/2/m_d$. Accourding to the relation between density of states and $\gamma(E)$, $N(E)\sim \gamma^{0.5}(d\gamma/dE)$, we can obtain the nonparabolic density of states is $N^2(E)=E+5c_1E^2+8c_2^2E^3+4c_1^3E^4$. Thereby, we can fit the band edge states by this formula and redefine the VBM and CBM by the extrapolation value of fitting line at $N^2(E)=0$.
+
+As the case of the ZnSnP2 in 64-atom and 512-atom supercells, the corrected bandgaps both converge to the 1.0 eV, while the occupation bandgap is 0.6 and 0.1 eV, respectively.
+
+I provide two versions of this code, Python and Matlab, to get the results in the paper. The reader can directly run the code to get the results.
+
+Mention that, for a new DOS in a new compounds, it is important to choose a suitable fitting range to obtain a reasonable fitting results. The choose of the disordered supercell also decide the results. For example, if a supercell only satisfies the short-range order but ignore the long-range order, the DOS may be not very useful. Before we calculate the bandgap, we must to ensure that the supercell is correct.
