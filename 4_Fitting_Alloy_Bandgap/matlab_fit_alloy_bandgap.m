@@ -1,14 +1,14 @@
 clc, clear, close all
 warning('off')
 
-[E221, dos221] = load_dos('dos-221-lro0-sro0-k444.dat', 64);
+[E221, dos221] = load_dos('dos-221-lro0-sro0-k444.dat', 64);    % filename, atom number
 [E444, dos444] = load_dos('dos-442-lro0-sro0-k111.dat', 512);
 
 figure(1)
 set(gcf, 'position', [100 100 600 670])
 axes('position', [0.16 0.6 0.7 0.3])
 hold on, box on
-[E_vbm_221, E_cbm_221] = get_fit_dos(E221, dos221, 1, -0.3, 0.5, -1.4);
+[E_vbm_221, E_cbm_221] = get_fit_dos(E221, dos221, 1, -0.3, 0.5, -1.4); % cbm_start, vbm_start, cbm_range, vbm_range
 set(gca, 'xtick', -5:1:5, 'ytick', 0:1000:2000)
 
 axes('position', [0.16 0.21 0.7 0.3])

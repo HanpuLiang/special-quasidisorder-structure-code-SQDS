@@ -90,8 +90,8 @@ def plot_DOS_fit_results(mat):
 
 
 if __name__ == '__main__':
-    cell221 = FitAlloyBandgap('dos-221-lro0-sro0-k444.dat', 64)
-    cell221.set_fit_range(1, -0.3, 0.5, -1.4)
+    cell221 = FitAlloyBandgap('dos-221-lro0-sro0-k444.dat', 64) # filename, atom number
+    cell221.set_fit_range(1, -0.3, 0.5, -1.4)   # cbm_start, vbm_start, cbm_range, vbm_range
     cell221.fit_bandedge()
     Eg221 = cell221.get_bandgap()
 
