@@ -7,12 +7,9 @@ This repository contains Python scripts related to the Special Quasirandom Struc
 - A disordered supercell typically exhibits an anion-centered polyhedron distribution. The script for calculating the distribution is located in the `3_Polyhedron_Distribution/` directory.
 - A new method for defining the disordered alloy bandgap based on the electronic density of states is implemented. The related code can be found in `4_Fitting_Alloy_Bandgap/` directory.
 
-**These scripts are used in my paper: [JACS 146, 16222 (2024)](https://pubs.acs.org/doi/10.1021/jacs.4c04201). If you use this code, especially the SQDS code, please cite this paper. Thank you!**
+**These scripts are used in my paper: [JACS 146, 16222 (2024)](https://pubs.acs.org/doi/10.1021/jacs.4c04201). Another paper is now being submitted to the PRL.**
 
-bib content:
-```
 
-```
 
 ## 1. Converting from ATAT structure file to POSCAR file
 
